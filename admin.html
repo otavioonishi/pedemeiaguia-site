@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Admin</title>
+<style>
+body{font-family:Arial;background:#111;color:#fff;text-align:center;padding:40px}
+input{padding:10px;margin:10px;border-radius:6px;border:none}
+button{padding:10px 20px;border:none;border-radius:6px;background:#00c070;color:#000;font-weight:bold}
+</style>
+</head>
+
+<body>
+
+<h2>🔐 Login</h2>
+<input id="u" placeholder="Usuário"><br>
+<input id="p" type="password" placeholder="Senha"><br>
+<button onclick="logar()">Entrar</button>
+
+<div id="painel" style="display:none;">
+<h2>📊 Acessos</h2>
+<p>Total: <span id="t"></span></p>
+<p>Hoje: <span id="h"></span></p>
+<button onclick="limpar()">Limpar</button>
+</div>
+
+<script>
+const U="admin";
+const P="123456"; // MUDA ISSO
+
+function gv(){return JSON.parse(localStorage.getItem('v')||'[]')}
+
+function logar(){
+if(u.value===U && p.value===P){
+painel.style.display='block';
+load();
+}
+}
+
+function load(){
+const v=gv();
+const hoje=new Date().toLocaleDateString('pt-BR');
+t.innerText=v.length;
+h.innerText=v.filter(x=>x.d===hoje).length;
+}
+
+function limpar(){
+localStorage.removeItem('v');
+load();
+}
+</script>
+
+</body>
+</html>

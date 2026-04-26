@@ -2,52 +2,113 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Admin</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script>
+// 🔒 PROTEÇÃO
+if(localStorage.getItem("auth")!=="true"){
+  window.location.href="login.html";
+}
+</script>
+
 <style>
-body{font-family:Arial;background:#111;color:#fff;text-align:center;padding:40px}
-input{padding:10px;margin:10px;border-radius:6px;border:none}
-button{padding:10px 20px;border:none;border-radius:6px;background:#00c070;color:#000;font-weight:bold}
+body{
+  background:#F0F4F8;
+  font-family:'Inter',sans-serif;
+}
+
+.admin{
+  max-width:600px;
+  margin:40px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.admin h1{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.stats{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.card{
+  background:#E6F7F1;
+  padding:15px;
+  border-radius:10px;
+  width:48%;
+  text-align:center;
+  font-weight:bold;
+}
+
+button{
+  padding:10px 16px;
+  border:none;
+  border-radius:8px;
+  background:#00875A;
+  color:#fff;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.logout{
+  background:#c0392b;
+  width:100%;
+}
 </style>
 </head>
 
 <body>
 
-<h2>🔐 Login</h2>
-<input id="u" placeholder="Usuário"><br>
-<input id="p" type="password" placeholder="Senha"><br>
-<button onclick="logar()">Entrar</button>
+<div class="admin">
+<h1>📊 Painel Admin</h1>
 
-<div id="painel" style="display:none;">
-<h2>📊 Acessos</h2>
-<p>Total: <span id="t"></span></p>
-<p>Hoje: <span id="h"></span></p>
-<button onclick="limpar()">Limpar</button>
+<div class="stats">
+  <div class="card">Total: <span id="total">0</span></div>
+  <div class="card">Hoje: <span id="hoje">0</span></div>
+</div>
+
+<button onclick="limpar()">🗑 Limpar registros</button>
+<button class="logout" onclick="logout()">🚪 Sair</button>
 </div>
 
 <script>
-const U="admin";
-const P="123456"; // MUDA ISSO
-
-function gv(){return JSON.parse(localStorage.getItem('v')||'[]')}
-
-function logar(){
-if(u.value===U && p.value===P){
-painel.style.display='block';
-load();
-}
+// pegar visitas
+function gv(){
+  return JSON.parse(localStorage.getItem('v')||'[]');
 }
 
+// carregar dados
 function load(){
-const v=gv();
-const hoje=new Date().toLocaleDateString('pt-BR');
-t.innerText=v.length;
-h.innerText=v.filter(x=>x.d===hoje).length;
+  const v=gv();
+  const hojeData=new Date().toLocaleDateString('pt-BR');
+
+  document.getElementById('total').innerText=v.length;
+  document.getElementById('hoje').innerText=
+    v.filter(x=>x.d===hojeData).length;
 }
 
+// limpar
 function limpar(){
-localStorage.removeItem('v');
-load();
+  localStorage.removeItem('v');
+  load();
 }
+
+// logout
+function logout(){
+  localStorage.removeItem("auth");
+  window.location.href="login.html";
+}
+
+load();
 </script>
 
 </body>

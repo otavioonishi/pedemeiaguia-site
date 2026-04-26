@@ -13,12 +13,9 @@ body{
   align-items:center;
   height:100vh;
   font-family:Arial;
-
-  /* FUNDO GARANTIDO */
-  background: radial-gradient(circle at top, #2196f3, #0d47a1);
+  background:linear-gradient(135deg,#0d47a1,#1976d2);
 }
 
-/* CAIXA */
 .box{
   background:#fff;
   padding:35px;
@@ -28,21 +25,17 @@ body{
   box-shadow:0 10px 30px rgba(0,0,0,0.25);
 }
 
-/* TÍTULO */
-h1{
-  margin:0;
+h2{
   color:#0d47a1;
-  font-size:24px;
+  margin-bottom:5px;
 }
 
-/* SUBTÍTULO */
 .subtitle{
   font-size:13px;
   color:#666;
-  margin-bottom:20px;
+  margin-bottom:15px;
 }
 
-/* INPUT */
 input{
   width:100%;
   padding:12px;
@@ -56,7 +49,6 @@ input:focus{
   border-color:#1976d2;
 }
 
-/* BOTÃO */
 button{
   width:100%;
   padding:12px;
@@ -78,8 +70,8 @@ button:hover{
 <body>
 
 <div class="box">
-  <h1>GuiaPédeMeia</h1>
-  <div class="subtitle">Acesse sua conta</div>
+  <h2>GuiaPédeMeia</h2>
+  <div class="subtitle">Faça login para continuar</div>
 
   <input type="email" id="user" placeholder="Email">
   <input type="password" id="pass" placeholder="Senha">
@@ -100,7 +92,7 @@ firebase.initializeApp({
 });
 
 function login(){
-  const email = document.getElementById("user").value;
+  const email = document.getElementById("user").value.trim();
   const senha = document.getElementById("pass").value;
 
   firebase.auth().signInWithEmailAndPassword(email, senha)
@@ -109,7 +101,7 @@ function login(){
       window.location.href = "home.html";
     })
     .catch((error) => {
-      alert("Erro ao entrar: " + error.message);
+      alert("Erro: " + error.message);
       console.log(error.code, error.message);
     });
 }

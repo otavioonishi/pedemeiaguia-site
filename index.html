@@ -4,255 +4,74 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guia Pé-de-Meia</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--g:#00875A;--y:#F5C400;--b:#1351B4}
 body{font-family:'Inter',sans-serif;background:#F8FAF9;color:#222}
-header{background:var(--g);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.hl{display:flex;align-items:center;gap:12px}
+
+/* HEADER */
+header{background:var(--g);padding:16px 20px;display:flex;align-items:center;gap:12px}
 .li{width:44px;height:44px;background:var(--y);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px}
-header h1{font-family:'Sora',sans-serif;color:#fff;font-size:1.1rem;font-weight:800}
+header h1{font-family:'Sora';color:#fff;font-size:1.1rem;font-weight:800}
 header p{color:rgba(255,255,255,.8);font-size:.75rem}
-.abtn{background:rgba(255,255,255,.15);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.2);padding:7px 12px;border-radius:8px;font-size:.75rem;cursor:pointer}
+
+/* HERO */
 .hero{background:linear-gradient(135deg,#00875A,#004d35);padding:40px 20px;text-align:center}
-.badge{display:inline-block;background:var(--y);color:#333;font-family:'Sora',sans-serif;font-weight:700;font-size:.72rem;padding:4px 12px;border-radius:20px;text-transform:uppercase;margin-bottom:14px}
-.hero h2{font-family:'Sora',sans-serif;color:#fff;font-size:1.7rem;font-weight:800;line-height:1.2;margin-bottom:10px}
-.hero h2 span{color:var(--y)}
-.hero p{color:rgba(255,255,255,.85);font-size:.95rem;margin-bottom:22px}
-.btnH{display:inline-block;background:var(--y);color:#333;font-family:'Sora',sans-serif;font-weight:700;padding:12px 28px;border-radius:50px;text-decoration:none}
-.av{background:#FFF8D6;border-left:4px solid var(--y);margin:20px 16px;padding:12px 16px;border-radius:0 10px 10px 0;display:flex;gap:10px}
-.av strong{font-family:'Sora',sans-serif;font-size:.85rem;display:block;margin-bottom:3px}
-.av p{font-size:.8rem;color:#555}
-.st{font-family:'Sora',sans-serif;font-size:1.2rem;font-weight:800;text-align:center;margin:28px 16px 6px}
-.ss{text-align:center;color:#666;font-size:.85rem;margin-bottom:20px}
-.steps{padding:0 16px 28px;max-width:540px;margin:0 auto}
-.step{display:flex;gap:14px;margin-bottom:0}
-.sl{display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0}
-.sn{width:44px;height:44px;border-radius:50%;background:var(--g);color:#fff;font-family:'Sora',sans-serif;font-weight:800;font-size:1rem;display:flex;align-items:center;justify-content:center}
-.sline{width:2px;flex:1;background:linear-gradient(#00B377,transparent);margin:4px 0;min-height:20px}
-.step:last-child .sline{display:none}
-.sb{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;flex:1;box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #eee}
-.sb h3{font-family:'Sora',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:5px}
-.sb p{font-size:.83rem;color:#555;line-height:1.6}
-.lb{background:#E6F7F1;border-radius:8px;padding:9px 12px;margin-top:9px;font-size:.8rem;font-weight:600;color:var(--g)}
-.tag{display:inline-block;background:#E6F7F1;border:1px solid #C3E8D8;color:var(--g);font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:7px}
-.tw{background:#FFF8D6;border-color:var(--y);color:#7A5F00}
-.rb{background:#fff;border-radius:14px;padding:18px;max-width:520px;margin:0 auto 24px;box-shadow:0 2px 10px rgba(0,0,0,.07);border:1px solid #eee}
-.rb h3{font-family:'Sora',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:12px}
-.si{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0;font-size:.83rem}
-.si:last-child{border-bottom:none}
-.dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
-.dg{background:#00C070}.dy{background:#F5C400}.dc{background:#CCC}.dr{background:#E53E3E}
-.ca{background:var(--b);margin:0 16px 28px;border-radius:14px;padding:18px;max-width:520px;margin-left:auto;margin-right:auto}
-.ca h3{font-family:'Sora',sans-serif;color:#fff;font-size:.95rem;font-weight:700;margin-bottom:12px}
-.ci{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.9);font-size:.83rem}
-.ci:last-child{border-bottom:none}
-footer{background:#111;padding:20px 16px;text-align:center;color:rgba(255,255,255,.5);font-size:.75rem;line-height:1.7}
-footer strong{color:rgba(255,255,255,.8)}
+.badge{background:var(--y);padding:4px 12px;border-radius:20px;font-size:.7rem;font-weight:700}
+.hero h2{color:#fff;font-size:1.7rem;margin:14px 0}
+.hero span{color:var(--y)}
+.btnH{background:var(--y);padding:12px 28px;border-radius:50px;text-decoration:none;color:#333;font-weight:700}
 
-/* LOGIN */
-#lp{display:none;min-height:100vh;background:linear-gradient(135deg,#00875A,#004d35);align-items:center;justify-content:center;padding:20px}
-.lc{background:#fff;border-radius:18px;padding:36px 28px;width:100%;max-width:360px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
-.ll{text-align:center;margin-bottom:24px}
-.ll .ic{font-size:2.4rem;background:#E6F7F1;width:64px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
-.ll h2{font-family:'Sora',sans-serif;font-size:1.2rem;font-weight:800}
-.ll p{font-size:.8rem;color:#888;margin-top:3px}
-.lf{margin-bottom:14px}
-.lf label{display:block;font-size:.8rem;font-weight:600;color:#444;margin-bottom:5px}
-.lf input{width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:9px;font-size:.9rem;outline:none}
-.lf input:focus{border-color:var(--g)}
-.lbtn{width:100%;padding:13px;background:var(--g);color:#fff;border:none;border-radius:9px;font-family:'Sora',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:4px}
-.le{background:#FFF0F0;border:1px solid #FFB3B3;color:#C00;border-radius:8px;padding:9px;font-size:.8rem;margin-top:10px;display:none;text-align:center}
-.lk{text-align:center;margin-top:16px;font-size:.78rem;color:#888}
-.lk a{color:var(--g);font-weight:600;cursor:pointer}
-
-/* ADMIN */
-#ap{display:none;min-height:100vh;background:#F0F4F8}
-.ah{background:#1a1a2e;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
-.ah h1{font-family:'Sora',sans-serif;color:#fff;font-size:1rem;font-weight:700}
-.ah p{color:rgba(255,255,255,.5);font-size:.75rem}
-.ob{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);padding:7px 14px;border-radius:7px;font-size:.8rem;cursor:pointer}
-.ab{padding:20px 16px;max-width:680px;margin:0 auto}
-.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
-.sc{background:#fff;border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
-.sc .n{font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:var(--g)}
-.sc .l{font-size:.75rem;color:#888;margin-top:2px}
-.atc{background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
-.atc h3{font-family:'Sora',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:14px}
-table{width:100%;border-collapse:collapse;font-size:.8rem}
-th{text-align:left;color:#888;font-weight:600;padding:5px 7px;border-bottom:1px solid #eee}
-td{padding:9px 7px;border-bottom:1px solid #f5f5f5;color:#333}
-tr:last-child td{border-bottom:none}
-.bv{display:inline-block;background:#E6F7F1;color:var(--g);padding:2px 9px;border-radius:20px;font-size:.7rem;font-weight:600}
-.ae{text-align:center;color:#aaa;font-size:.85rem;padding:28px 0}
-.cb{background:#fff0f0;color:#c00;border:1px solid #ffb3b3;padding:7px 14px;border-radius:7px;font-size:.78rem;cursor:pointer;margin-top:14px}
+/* BOX */
+.lb{background:#E6F7F1;padding:9px 12px;border-radius:8px;margin-top:10px;font-weight:600;color:var(--g)}
+.box{background:#fff;margin:20px;border-radius:12px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.07)}
 </style>
 </head>
+
 <body>
 
-<!-- LOGIN -->
-<div id="lp">
-  <div class="lc">
-    <div class="ll">
-      <div class="ic">🔐</div>
-      <h2>Área do Administrador</h2>
-      <p>Acesso restrito ao dono do site</p>
-    </div>
-    <div class="lf"><label>Usuário</label><input type="text" id="lu" placeholder="Usuário"></div>
-    <div class="lf"><label>Senha</label><input type="password" id="lp2" placeholder="Senha"></div>
-    <button class="lbtn" onclick="login()">Entrar</button>
-    <div class="le" id="le">❌ Usuário ou senha incorretos.</div>
-    <div class="lk"><a onclick="go('m')">← Voltar para o site</a></div>
-  </div>
+<header>
+<div class="li">🎓</div>
+<div>
+<h1>Guia Pé-de-Meia</h1>
+<p>Programa MEC / CAIXA</p>
+</div>
+</header>
+
+<div class="hero">
+<div class="badge">📋 Tutorial</div>
+<h2>Veja se seu <span>pagamento</span> foi enviado</h2>
+<a href="#passo" class="btnH">Ver passo a passo</a>
 </div>
 
-<!-- ADMIN -->
-<div id="ap">
-  <div class="ah">
-    <div><h1>📊 Painel Admin</h1><p>Acessos ao site</p></div>
-    <button class="ob" onclick="logout()">Sair</button>
-  </div>
-  <div class="ab">
-    <div class="sg">
-      <div class="sc"><div class="n" id="tv">0</div><div class="l">Total de visitas</div></div>
-      <div class="sc"><div class="n" id="hv">0</div><div class="l">Visitas hoje</div></div>
-    </div>
-    <div class="atc">
-      <h3>📋 Registro de acessos</h3>
-      <div id="ta"></div>
-      <button class="cb" onclick="clear2()">🗑 Limpar registros</button>
-    </div>
-  </div>
+<div class="box" id="passo">
+<h3>1. Acesse o site oficial</h3>
+<p>Entre no site abaixo:</p>
+<div class="lb">🔗 consultapemedemeia.mec.gov.br</div>
 </div>
 
-<!-- SITE -->
-<div id="mp">
-  <header>
-    <div class="hl">
-      <div class="li">🎓</div>
-      <div><h1>Guia Pé-de-Meia</h1><p>Programa MEC / CAIXA • Ensino Médio</p></div>
-    </div>
-    <button class="abtn" onclick="go('l')">⚙ Admin</button>
-  </header>
+<div class="box">
+<h3>2. Faça login</h3>
+<p>Use seu CPF e senha do Gov.br</p>
+</div>
 
-  <div class="hero">
-    <div class="badge">📋 Tutorial Gratuito</div>
-    <h2>Veja se seu <span>pagamento</span><br>foi enviado</h2>
-    <p>Passo a passo simples para consultar sua parcela</p>
-    <a href="#p1" class="btnH">▼ Ver passo a passo</a>
-  </div>
-
-  <div class="av">
-    <div style="font-size:1.3rem">⚠️</div>
-    <div><strong>Atenção</strong><p>Use apenas canais oficiais. Nunca forneça sua senha a terceiros.</p></div>
-  </div>
-
-  <p class="st" id="p1">Passo a passo</p>
-  <p class="ss">Siga cada etapa na ordem</p>
-
-  <div class="steps">
-    <div class="step">
-      <div class="sl"><div class="sn">1</div><div class="sline"></div></div>
-      <div class="sb">
-        <h3>🌐 Acesse o site oficial</h3>
-        <p>Abra o navegador e entre no endereço oficial do Pé-de-Meia:</p>
-        <div class="lb">🔗 peddemeia.mec.gov.br</div>
-        <span class="tag">✅ Site oficial do MEC</span>
-      </div>
-    </div>
-    <div class="step">
-      <div class="sl"><div class="sn">2</div><div class="sline"></div></div>
-      <div class="sb">
-        <h3>🔑 Entre com o Gov.br</h3>
-        <p>Clique em <strong>"Consultar minha situação"</strong> e faça login com seu CPF e senha do Gov.br.</p>
-        <span class="tag">💡 Crie sua conta em gov.br/conta</span>
-      </div>
-    </div>
-    <div class="step">
-      <div class="sl"><div class="sn">3</div><div class="sline"></div></div>
-      <div class="sb">
-        <h3>📜 Role até o final da página</h3>
-        <p>Após entrar, role até o fim da página e encontre a seção <strong>2024</strong> ou <strong>2025</strong>.</p>
-        <span class="tag tw">⚠️ Role até o fim da página!</span>
-      </div>
-    </div>
-    <div class="step">
-      <div class="sl"><div class="sn">4</div><div class="sline"></div></div>
-      <div class="sb">
-        <h3>🔍 Veja o status da parcela</h3>
-        <p>Cada parcela terá um status. Veja a legenda abaixo para entender o que significa.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="sl"><div class="sn">5</div><div class="sline"></div></div>
-      <div class="sb">
-        <h3>📱 Acesse pelo Caixa Tem</h3>
-        <p>Se aparecer <strong>"Pago"</strong>, baixe o app <strong>Caixa Tem</strong> e acesse com seu CPF.</p>
-        <div class="lb">📲 Caixa Tem — Google Play / App Store</div>
-      </div>
-    </div>
-  </div>
-
-  <p class="st">O que significa cada status?</p>
-  <div class="rb">
-    <h3>🔎 Legenda</h3>
-    <div class="si"><div class="dot dg"></div><div><strong>Enviado para pagamento</strong> — Em processamento na CAIXA.</div></div>
-    <div class="si"><div class="dot dg"></div><div><strong>Pago</strong> — Disponível no Caixa Tem.</div></div>
-    <div class="si"><div class="dot dy"></div><div><strong>Em análise</strong> — Aguarde a verificação.</div></div>
-    <div class="si"><div class="dot dc"></div><div><strong>Pendente</strong> — Verifique frequência com a escola.</div></div>
-    <div class="si"><div class="dot dr"></div><div><strong>Bloqueado</strong> — Fale com a secretaria da escola.</div></div>
-  </div>
-
-  <p class="st">Canais oficiais</p>
-  <div class="ca">
-    <h3>📞 Precisa de ajuda?</h3>
-    <div class="ci"><span>📞</span><div><strong>0800 722 0104</strong> — CAIXA (gratuito)</div></div>
-    <div class="ci"><span>🌐</span><div><strong>peddemeia.mec.gov.br</strong></div></div>
-    <div class="ci"><span>📱</span><div><strong>App Caixa Tem</strong></div></div>
-    <div class="ci"><span>🏫</span><div><strong>Secretaria da sua escola</strong></div></div>
-  </div>
-
-  <footer>
-    <p>Site <strong>informativo e gratuito</strong>. Não coletamos dados pessoais.<br>
-    <strong>Pé-de-Meia</strong> é um programa do Ministério da Educação do Brasil.</p>
-  </footer>
+<div class="box">
+<h3>3. Veja o status</h3>
+<p>Role até o final e confira se está pago</p>
 </div>
 
 <script>
-const U="admin", P="pedemeia2024";
 function gv(){try{return JSON.parse(localStorage.getItem('v')||'[]')}catch(e){return[]}}
-function sv(){const v=gv(),n=new Date();v.push({d:n.toLocaleDateString('pt-BR'),h:n.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}),t:n.getTime()});localStorage.setItem('v',JSON.stringify(v))}
-function go(p){
-  document.getElementById('lp').style.display='none';
-  document.getElementById('ap').style.display='none';
-  document.getElementById('mp').style.display='none';
-  if(p==='l'){document.getElementById('lp').style.display='flex';}
-  else if(p==='a'){document.getElementById('ap').style.display='block';}
-  else{document.getElementById('mp').style.display='block';}
+function sv(){
+const v=gv(),n=new Date();
+v.push({d:n.toLocaleDateString('pt-BR')});
+localStorage.setItem('v',JSON.stringify(v));
 }
-function login(){
-  const u=document.getElementById('lu').value.trim();
-  const p=document.getElementById('lp2').value.trim();
-  const e=document.getElementById('le');
-  if(u===U&&p===P){e.style.display='none';go('a');loadAdmin();}
-  else{e.style.display='block';}
-}
-function logout(){document.getElementById('lu').value='';document.getElementById('lp2').value='';go('l');}
-function loadAdmin(){
-  const v=gv(),hoje=new Date().toLocaleDateString('pt-BR');
-  document.getElementById('tv').textContent=v.length;
-  document.getElementById('hv').textContent=v.filter(x=>x.d===hoje).length;
-  const c=document.getElementById('ta');
-  if(!v.length){c.innerHTML='<div class="ae">Nenhum acesso ainda. Compartilhe o site! 📢</div>';return;}
-  const r=[...v].reverse().slice(0,100);
-  let h='<table><thead><tr><th>#</th><th>Data</th><th>Hora</th><th>Status</th></tr></thead><tbody>';
-  r.forEach((x,i)=>{h+=`<tr><td>${v.length-i}</td><td>${x.d}</td><td>${x.h}</td><td><span class="bv">✓ Visitou</span></td></tr>`;});
-  c.innerHTML=h+'</tbody></table>';
-}
-function clear2(){if(confirm('Apagar todos os registros?')){localStorage.removeItem('v');loadAdmin();}}
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('lp').style.display==='flex')login();});
-go('m');sv();
+sv();
 </script>
+
 </body>
 </html>

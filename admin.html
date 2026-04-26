@@ -7,11 +7,26 @@
 
 <link rel="stylesheet" href="style.css">
 
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
 <script>
-// 🔒 PROTEÇÃO
-if(localStorage.getItem("auth")!=="true"){
-  window.location.href="login.html";
-}
+const firebaseConfig = {
+  apiKey: "AIzaSyC1hRrJow0dnPs8mVgVr0bYXGP7D2JwE-8",
+  authDomain: "pedemiaguia.firebaseapp.com",
+  projectId: "pedemiaguia",
+  appId: "1:1032965745106:web:0be2a606ac7c8fa1a8800b"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+// 🔒 PROTEÇÃO REAL
+firebase.auth().onAuthStateChanged(user => {
+  if(!user){
+    window.location.href = "login.html";
+  }
+});
 </script>
 
 <style>
@@ -102,10 +117,11 @@ function limpar(){
   load();
 }
 
-// logout
+// logout REAL
 function logout(){
-  localStorage.removeItem("auth");
-  window.location.href="login.html";
+  firebase.auth().signOut().then(() => {
+    window.location.href="login.html";
+  });
 }
 
 load();

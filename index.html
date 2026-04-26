@@ -6,9 +6,9 @@
 <title>Guia Pé-de-Meia</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="style.css">
-</head>
+
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
@@ -23,13 +23,10 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
-firebase.auth().onAuthStateChanged(user => {
-  if(!user){
-    window.location.href = "login.html";
-  }
-});
 </script>
+
+</head>
+
 <body>
 
 <header>
@@ -104,6 +101,18 @@ firebase.auth().onAuthStateChanged(user => {
 <footer>
 Site informativo. Não coletamos dados pessoais.
 </footer>
+
+<!-- PROTEÇÃO LOGIN -->
+<script>
+firebase.auth().onAuthStateChanged(user => {
+  if(!user){
+    window.location.href = "login.html";
+  }
+});
+</script>
+
+</body>
+</html></footer>
 
 </body>
 </html>

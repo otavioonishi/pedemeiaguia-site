@@ -52,32 +52,28 @@ button{
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
+
 <script>
-try{
-  const firebaseConfig = {
-    apiKey: "AIzaSyC1hRrJow0dnPs8mVgVr0bYXGP7D2JwE-8",
-    authDomain: "pedemiaguia.firebaseapp.com",
-    projectId: "pedemiaguia",
-    appId: "1:1032965745106:web:0be2a606ac7c8fa1a8800b"
-  };
+firebase.initializeApp({
+  apiKey: "AIzaSyC1hRrJow0dnPs8mVgVr0bYXGP7D2JwE-8",
+  authDomain: "pedemiaguia.firebaseapp.com",
+  projectId: "pedemiaguia",
+  appId: "1:1032965745106:web:0be2a606ac7c8fa1a8800b"
+});
 
-  firebase.initializeApp(firebaseConfig);
+function login(){
+  const email = document.getElementById("user").value;
+  const senha = document.getElementById("pass").value;
 
-  function login(){
-    const email = document.getElementById("user").value;
-    const senha = document.getElementById("pass").value;
-
-    firebase.auth().signInWithEmailAndPassword(email, senha)
-      .then(() => {
-        window.location.href = "index.html";
-      })
-      .catch(() => {
-        alert("Erro ao entrar");
-      });
-  }
-
-}catch(e){
-  document.body.innerHTML = "<h2 style='color:white;text-align:center'>Erro no Firebase</h2>";
+  firebase.auth().signInWithEmailAndPassword(email, senha)
+    .then((userCredential) => {
+      sessionStorage.setItem("usuario", userCredential.user.email);
+      window.location.href = "index.html";
+    })
+    .catch((error) => {
+      alert("Erro: " + error.message);
+      console.log(error.code, error.message);
+    });
 }
 </script>
 

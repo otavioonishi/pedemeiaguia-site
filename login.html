@@ -1,28 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+
+<style>
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  background:linear-gradient(135deg,#00875A,#004d35);
+  font-family:Arial;
+}
+
+.box{
+  background:#fff;
+  padding:30px;
+  border-radius:12px;
+  width:300px;
+  text-align:center;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+}
+
+button{
+  width:100%;
+  padding:10px;
+  background:#00875A;
+  color:#fff;
+  border:none;
+}
+</style>
+
+</head>
+<body>
+
+<div class="box">
+  <h2>Login</h2>
+  <input type="email" id="user" placeholder="Email">
+  <input type="password" id="pass" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+</div>
+
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyC1hRrJow0dnPs8mVgVr0bYXGP7D2JwE-8",
-  authDomain: "pedemiaguia.firebaseapp.com",
-  projectId: "pedemiaguia",
-  storageBucket: "pedemiaguia.firebasestorage.app",
-  messagingSenderId: "1032965745106",
-  appId: "1:1032965745106:web:0be2a606ac7c8fa1a8800b"
-};
+try{
+  const firebaseConfig = {
+    apiKey: "AIzaSyC1hRrJow0dnPs8mVgVr0bYXGP7D2JwE-8",
+    authDomain: "pedemiaguia.firebaseapp.com",
+    projectId: "pedemiaguia",
+    appId: "1:1032965745106:web:0be2a606ac7c8fa1a8800b"
+  };
 
-firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
 
-function login(){
-  const email = document.getElementById("user").value;
-  const senha = document.getElementById("pass").value;
+  function login(){
+    const email = document.getElementById("user").value;
+    const senha = document.getElementById("pass").value;
 
-  firebase.auth().signInWithEmailAndPassword(email, senha)
-    .then(() => {
-      window.location.href = "index.html";
-    })
-    .catch(() => {
-      alert("Erro ao entrar");
-    });
+    firebase.auth().signInWithEmailAndPassword(email, senha)
+      .then(() => {
+        window.location.href = "index.html";
+      })
+      .catch(() => {
+        alert("Erro ao entrar");
+      });
+  }
+
+}catch(e){
+  document.body.innerHTML = "<h2 style='color:white;text-align:center'>Erro no Firebase</h2>";
 }
 </script>
+
+</body>
+</html>

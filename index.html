@@ -3,10 +3,349 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guia Pé-de-Meia</title>
+<title>Guia Pé-de-Meia | Consulte seu pagamento</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --verde: #00875A; --verde-claro: #00B377; --verde-bg: #E6F7F1;
+    --amarelo: #F5C400; --amarelo-claro: #FFF8D6;
+    --azul: #1351B4; --cinza: #555; --claro: #F8FAF9;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--claro); color: #222; min-height: 100vh; }
+
+  /* PÁGINAS */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ===== LOGIN ===== */
+  #loginPage {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #00875A 0%, #005C3D 100%);
+    display: none; align-items: center; justify-content: center; padding: 24px;
+  }
+  #loginPage.active { display: flex; }
+  .login-card {
+    background: #fff; border-radius: 20px; padding: 40px 32px;
+    width: 100%; max-width: 380px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    animation: fadeUp 0.4s ease;
+  }
+  .login-logo { text-align: center; margin-bottom: 28px; }
+  .login-logo .icon { font-size: 2.8rem; background: #E6F7F1; width: 72px; height: 72px;
+    border-radius: 18px; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px; }
+  .login-logo h2 { font-family: 'Sora', sans-serif; font-size: 1.3rem; font-weight: 800; color: #111; }
+  .login-logo p { font-size: 0.82rem; color: #888; margin-top: 4px; }
+  .login-field { margin-bottom: 16px; }
+  .login-field label { display: block; font-size: 0.82rem; font-weight: 600; color: #444; margin-bottom: 6px; }
+  .login-field input {
+    width: 100%; padding: 12px 16px; border: 1.5px solid #ddd;
+    border-radius: 10px; font-size: 0.95rem; font-family: 'Inter', sans-serif;
+    outline: none; transition: border 0.2s;
+  }
+  .login-field input:focus { border-color: var(--verde); }
+  .login-btn {
+    width: 100%; padding: 14px; background: var(--verde); color: #fff;
+    border: none; border-radius: 10px; font-family: 'Sora', sans-serif;
+    font-size: 1rem; font-weight: 700; cursor: pointer;
+    transition: background 0.2s, transform 0.1s; margin-top: 4px;
+  }
+  .login-btn:hover { background: #006644; transform: translateY(-1px); }
+  .login-error {
+    background: #FFF0F0; border: 1px solid #FFB3B3; color: #C00;
+    border-radius: 8px; padding: 10px 14px; font-size: 0.82rem;
+    margin-top: 12px; display: none; text-align: center;
+  }
+  .login-link { text-align: center; margin-top: 20px; font-size: 0.8rem; color: #888; }
+  .login-link a { color: var(--verde); text-decoration: none; font-weight: 600; cursor: pointer; }
+
+  /* ===== ADMIN ===== */
+  #adminPage { display: none; min-height: 100vh; background: #F0F4F8; }
+  #adminPage.active { display: block; }
+  .admin-header {
+    background: #1a1a2e; padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .admin-header h1 { font-family: 'Sora', sans-serif; color: #fff; font-size: 1.1rem; font-weight: 700; }
+  .admin-header p { color: rgba(255,255,255,0.5); font-size: 0.78rem; }
+  .logout-btn {
+    background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);
+    padding: 8px 16px; border-radius: 8px; font-size: 0.82rem; cursor: pointer;
+    font-family: 'Inter', sans-serif; transition: background 0.2s;
+  }
+  .logout-btn:hover { background: rgba(255,255,255,0.2); }
+  .admin-body { padding: 24px 16px; max-width: 700px; margin: 0 auto; }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  .stat-card { background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .stat-card .num { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--verde); }
+  .stat-card .label { font-size: 0.78rem; color: #888; margin-top: 2px; }
+  .admin-table-card { background: #fff; border-radius: 14px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .admin-table-card h3 { font-family: 'Sora', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  th { text-align: left; color: #888; font-weight: 600; padding: 6px 8px; border-bottom: 1px solid #eee; }
+  td { padding: 10px 8px; border-bottom: 1px solid #f5f5f5; color: #333; }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 600; }
+  .badge-verde { background: #E6F7F1; color: var(--verde); }
+  .admin-empty { text-align: center; color: #aaa; font-size: 0.88rem; padding: 32px 0; }
+  .clear-btn {
+    background: #fff0f0; color: #c00; border: 1px solid #ffb3b3;
+    padding: 8px 16px; border-radius: 8px; font-size: 0.8rem; cursor: pointer;
+    font-family: 'Inter', sans-serif; margin-top: 16px;
+  }
+
+  /* ===== SITE PÚBLICO ===== */
+  #mainPage { display: none; }
+  #mainPage.active { display: block; }
+  header {
+    background: var(--verde); padding: 18px 24px;
+    display: flex; align-items: center; gap: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15); justify-content: space-between;
+  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .logo-icon { width: 48px; height: 48px; background: var(--amarelo); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+  header h1 { font-family: 'Sora', sans-serif; color: #fff; font-size: 1.35rem; font-weight: 800; line-height: 1.2; }
+  header p { color: rgba(255,255,255,0.85); font-size: 0.82rem; margin-top: 2px; }
+  .admin-access { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); padding: 7px 13px; border-radius: 8px; font-size: 0.75rem; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; transition: background 0.2s; }
+  .admin-access:hover { background: rgba(255,255,255,0.25); color: #fff; }
+  .hero { background: linear-gradient(135deg, var(--verde) 0%, #005C3D 100%); padding: 48px 24px 56px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content:''; position:absolute; width:300px; height:300px; background:rgba(255,255,255,0.04); border-radius:50%; top:-80px; right:-80px; }
+  .hero-badge { display:inline-block; background:var(--amarelo); color:#333; font-family:'Sora',sans-serif; font-weight:700; font-size:0.75rem; padding:5px 14px; border-radius:20px; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:16px; }
+  .hero h2 { font-family:'Sora',sans-serif; color:#fff; font-size:1.9rem; font-weight:800; line-height:1.25; margin-bottom:12px; position:relative; }
+  .hero h2 span { color:var(--amarelo); }
+  .hero p { color:rgba(255,255,255,0.85); font-size:1rem; max-width:420px; margin:0 auto 28px; line-height:1.6; position:relative; }
+  .btn-hero { display:inline-block; background:var(--amarelo); color:#333; font-family:'Sora',sans-serif; font-weight:700; font-size:0.95rem; padding:14px 32px; border-radius:50px; text-decoration:none; box-shadow:0 4px 20px rgba(245,196,0,0.4); transition:transform 0.2s,box-shadow 0.2s; position:relative; }
+  .btn-hero:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(245,196,0,0.5); }
+  .aviso { background:var(--amarelo-claro); border-left:4px solid var(--amarelo); margin:24px 16px; padding:14px 18px; border-radius:0 10px 10px 0; display:flex; gap:12px; align-items:flex-start; }
+  .aviso-icon { font-size:1.4rem; flex-shrink:0; }
+  .aviso strong { display:block; font-family:'Sora',sans-serif; font-size:0.9rem; margin-bottom:3px; }
+  .aviso p { font-size:0.82rem; color:#555; line-height:1.5; }
+  .section-title { font-family:'Sora',sans-serif; font-size:1.3rem; font-weight:800; text-align:center; margin:32px 16px 8px; color:#111; }
+  .section-sub { text-align:center; color:var(--cinza); font-size:0.88rem; margin:0 16px 24px; }
+  .steps { display:flex; flex-direction:column; gap:0; padding:0 16px 32px; max-width:560px; margin:0 auto; }
+  .step { display:flex; gap:16px; position:relative; animation:fadeUp 0.5s ease both; }
+  .step:nth-child(1){animation-delay:.1s}.step:nth-child(2){animation-delay:.2s}.step:nth-child(3){animation-delay:.3s}.step:nth-child(4){animation-delay:.4s}.step:nth-child(5){animation-delay:.5s}
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .step-left { display:flex; flex-direction:column; align-items:center; flex-shrink:0; width:48px; }
+  .step-num { width:48px; height:48px; border-radius:50%; background:var(--verde); color:#fff; font-family:'Sora',sans-serif; font-weight:800; font-size:1.1rem; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,135,90,0.3); flex-shrink:0; }
+  .step-line { width:2px; flex:1; background:linear-gradient(to bottom,var(--verde-claro),transparent); margin:6px 0; min-height:24px; }
+  .step:last-child .step-line { display:none; }
+  .step-body { background:#fff; border-radius:14px; padding:18px 18px 20px; margin-bottom:16px; flex:1; box-shadow:0 2px 12px rgba(0,0,0,0.07); border:1px solid #eee; }
+  .step-emoji { font-size:1.5rem; margin-bottom:8px; display:block; }
+  .step-body h3 { font-family:'Sora',sans-serif; font-size:1rem; font-weight:700; margin-bottom:6px; color:#111; }
+  .step-body p { font-size:0.88rem; color:var(--cinza); line-height:1.6; }
+  .link-box { display:flex; align-items:center; gap:8px; background:var(--verde-bg); border-radius:8px; padding:10px 12px; margin-top:10px; font-size:0.82rem; font-weight:600; color:var(--verde); word-break:break-all; }
+  .tag { display:inline-block; background:#F0FAF5; border:1px solid #C3E8D8; color:var(--verde); font-size:0.75rem; font-weight:600; padding:3px 10px; border-radius:20px; margin-top:8px; }
+  .tag-warn { background:#FFF8D6; border-color:#F5C400; color:#7A5F00; }
+  .resultado-box { background:#fff; border-radius:16px; padding:20px; max-width:528px; margin:0 auto 28px; box-shadow:0 2px 12px rgba(0,0,0,0.07); border:1px solid #eee; }
+  .resultado-box h3 { font-family:'Sora',sans-serif; font-size:1rem; font-weight:700; margin-bottom:14px; }
+  .status-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid #f0f0f0; font-size:0.88rem; }
+  .status-item:last-child { border-bottom:none; }
+  .status-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+  .dot-verde{background:#00C070}.dot-amarelo{background:#F5C400}.dot-cinza{background:#CCC}.dot-vermelho{background:#E53E3E}
+  .canais { background:var(--azul); margin:0 16px 32px; border-radius:16px; padding:20px; max-width:528px; margin-left:auto; margin-right:auto; }
+  .canais h3 { font-family:'Sora',sans-serif; color:#fff; font-size:1rem; font-weight:700; margin-bottom:14px; }
+  .canal-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.9); font-size:0.88rem; }
+  .canal-item:last-child { border-bottom:none; }
+  .canal-icon { font-size:1.3rem; }
+  footer { background:#111; padding:24px 16px; text-align:center; color:rgba(255,255,255,0.5); font-size:0.78rem; line-height:1.7; }
+  footer strong { color:rgba(255,255,255,0.8); }
+</style>
 </head>
-<body style="font-family:sans-serif;padding:20px;background:#00875A;color:white;text-align:center">
-<h1>🎓 Guia Pé-de-Meia</h1>
-<p>Site funcionando! Carregando...</p>
-</body>
-</html>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div id="loginPage">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="icon">🔐</div>
+      <h2>Área do Administrador</h2>
+      <p>Acesso restrito — somente para o dono do site</p>
+    </div>
+    <div class="login-field">
+      <label>Usuário</label>
+      <input type="text" id="loginUser" placeholder="Digite seu usuário" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>Senha</label>
+      <input type="password" id="loginPass" placeholder="Digite sua senha" autocomplete="current-password">
+    </div>
+    <button class="login-btn" onclick="fazerLogin()">Entrar no Painel</button>
+    <div class="login-error" id="loginError">❌ Usuário ou senha incorretos.</div>
+    <div class="login-link">
+      <a onclick="irParaSite()">← Voltar para o site dos alunos</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN ===== -->
+<div id="adminPage">
+  <div class="admin-header">
+    <div>
+      <h1>📊 Painel do Administrador</h1>
+      <p>Visão geral de acessos ao site</p>
+    </div>
+    <button class="logout-btn" onclick="fazerLogout()">Sair</button>
+  </div>
+  <div class="admin-body">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="num" id="totalVisitas">0</div>
+        <div class="label">Total de visitas</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="visitasHoje">0</div>
+        <div class="label">Visitas hoje</div>
+      </div>
+    </div>
+    <div class="admin-table-card">
+      <h3>📋 Registro de acessos</h3>
+      <div id="tabelaAcessos"></div>
+      <button class="clear-btn" onclick="limparVisitas()">🗑 Limpar todos os registros</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SITE PÚBLICO ===== -->
+<div id="mainPage">
+  <header>
+    <div class="header-left">
+      <div class="logo-icon">🎓</div>
+      <div>
+        <h1>Guia Pé-de-Meia</h1>
+        <p>Programa de Poupança para o Ensino Médio • MEC / CAIXA</p>
+      </div>
+    </div>
+    <button class="admin-access" onclick="irParaLogin()">⚙ Admin</button>
+  </header>
+
+  <div class="hero">
+    <div class="hero-badge">📋 Tutorial Oficial</div>
+    <h2>Veja se seu <span>pagamento</span><br>foi enviado</h2>
+    <p>Siga o passo a passo abaixo e descubra em minutos se a sua parcela do Pé-de-Meia já foi liberada.</p>
+    <a href="#passo1" class="btn-hero">▼ Ver passo a passo</a>
+  </div>
+
+  <div class="aviso">
+    <div class="aviso-icon">⚠️</div>
+    <div>
+      <strong>Atenção antes de começar</strong>
+      <p>Use apenas os canais oficiais: site do MEC ou aplicativo Caixa Tem. Nunca forneça senha ou dados bancários a terceiros.</p>
+    </div>
+  </div>
+
+  <p class="section-title" id="passo1">Passo a passo</p>
+  <p class="section-sub">Siga cada etapa na ordem correta</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <span class="step-emoji">🌐</span>
+        <h3>Acesse o site oficial do Pé-de-Meia</h3>
+        <p>Abra o navegador do seu celular ou computador e entre no endereço oficial do programa:</p>
+        <div class="link-box">🔗 peddemeia.mec.gov.br</div>
+        <span class="tag">✅ Site oficial do MEC</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <span class="step-emoji">🔑</span>
+        <h3>Clique em "Consultar" e entre com o Gov.br</h3>
+        <p>Na página inicial, clique em <strong>"Consultar minha situação"</strong>. Você será redirecionado para o login do Gov.br — use seu CPF e senha cadastrados.</p>
+        <span class="tag">💡 Não tem conta Gov.br? Crie em gov.br/conta</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <span class="step-emoji">📜</span>
+        <h3>Vá até o final da página — seção 2024/2025</h3>
+        <p>Após entrar, role a página até o final. Procure a seção <strong>2024</strong> ou <strong>2025</strong> e verifique o status de cada parcela.</p>
+        <span class="tag tag-warn">⚠️ Role até o fim da página!</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-left"><div class="step-num">4</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <span class="step-emoji">🔍</span>
+        <h3>Verifique o status do seu pagamento</h3>
+        <p>Cada parcela mostrará um status indicando se foi aprovada, está em análise ou tem pendências. Veja a legenda abaixo para entender cada situação.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-left"><div class="step-num">5</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <span class="step-emoji">📱</span>
+        <h3>Dinheiro disponível? Acesse pelo Caixa Tem</h3>
+        <p>Se o status mostrar <strong>"Pago"</strong>, baixe o app <strong>Caixa Tem</strong> e acesse com seu CPF para ver o saldo e movimentar o dinheiro.</p>
+        <div class="link-box">📲 App: Caixa Tem (Google Play / App Store)</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title">O que significa cada status?</p>
+  <div class="resultado-box">
+    <h3>🔎 Legenda dos status</h3>
+    <div class="status-item"><div class="status-dot dot-verde"></div><div><strong>Enviado para pagamento</strong> — Aprovado, sendo processado pela CAIXA.</div></div>
+    <div class="status-item"><div class="status-dot dot-verde"></div><div><strong>Pago</strong> — Dinheiro disponível no Caixa Tem.</div></div>
+    <div class="status-item"><div class="status-dot dot-amarelo"></div><div><strong>Em análise</strong> — Cadastro ainda sendo verificado. Aguarde.</div></div>
+    <div class="status-item"><div class="status-dot dot-cinza"></div><div><strong>Pendente</strong> — Pode faltar frequência ou dados. Fale com a escola.</div></div>
+    <div class="status-item"><div class="status-dot dot-vermelho"></div><div><strong>Bloqueado / Não elegível</strong> — Verifique pendências com a escola.</div></div>
+  </div>
+
+  <p class="section-title">Canais oficiais de atendimento</p>
+  <div class="canais">
+    <h3>📞 Precisa de ajuda? Entre em contato:</h3>
+    <div class="canal-item"><span class="canal-icon">📞</span><div><strong>0800 722 0104</strong> — Central CAIXA (gratuito)</div></div>
+    <div class="canal-item"><span class="canal-icon">🌐</span><div><strong>peddemeia.mec.gov.br</strong> — Portal oficial MEC</div></div>
+    <div class="canal-item"><span class="canal-icon">📱</span><div><strong>App Caixa Tem</strong> — Para acessar o saldo</div></div>
+    <div class="canal-item"><span class="canal-icon">🏫</span><div><strong>Secretaria da sua escola</strong> — Para pendências de frequência</div></div>
+  </div>
+
+  <footer>
+    <p>Este site é <strong>informativo e educativo</strong>. Não coletamos dados pessoais.<br>
+    Todas as consultas devem ser feitas nos canais oficiais do MEC e CAIXA.<br>
+    <strong>Pé-de-Meia</strong> é um programa do Ministério da Educação do Brasil.</p>
+  </footer>
+</div>
+
+<script>
+  // =============================================
+  // CREDENCIAIS — TROQUE AQUI ANTES DE PUBLICAR
+  const ADMIN_USER = "admin";
+  const ADMIN_PASS = "pedemeia2024";
+  // =============================================
+
+  function getVisitas() {
+    try { return JSON.parse(localStorage.getItem('visitas_pdm') || '[]'); }
+    catch(e) { return []; }
+  }
+
+  function salvarVisita() {
+    const visitas = getVisitas();
+    const agora = new Date();
+    visitas.push({
+      data: agora.toLocaleDateString('pt-BR'),
+      hora: agora.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}),
+      ts: agora.getTime()
+    });
+    localStorage.setItem('visitas_pdm', JSON.stringify(visitas));
+  }
+
+  function mostrarPagina(id) {
+    ['loginPage','adminPage','mainPage'].forEach(p => {
+      const el = document.getElementById(p);
+      el.classList.remove('active');
+      if (p === 'loginPage') el.style.display = 'none';
+      else el.style.display = 'none';
+    });
+    const alvo = document.getElementById(id);
+    if (id === 'loginPage') { alvo.style.display = 'flex'; alvo.classList.add('active'); }
+    else { alvo.style.display = 'block'; alvo.classList.add('active'); }
+  }
+
+  function irParaLogin() { mostrarPagina('loginPage'); }
+  fu

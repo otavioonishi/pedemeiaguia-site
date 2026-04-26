@@ -1,4 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia Pé-de-Meia</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#F8FAF9;color:#222}
+
+/* HEADER */
+header{background:#00875A;padding:16px;text-align:center;color:#fff}
+header h1{font-family:'Sora';font-size:1.2rem}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#00875A,#004d35);padding:40px 20px;text-align:center;color:#fff}
+.hero h2{font-size:1.6rem;margin-bottom:10px}
+.hero span{color:#F5C400}
+
+/* STEPS */
 .steps{max-width:520px;margin:30px auto;padding:0 16px}
 .step{display:flex;gap:14px;margin-bottom:18px}
 .sn{width:42px;height:42px;border-radius:50%;background:#00875A;color:#fff;
@@ -11,7 +33,22 @@ box-shadow:0 2px 8px rgba(0,0,0,.08);flex:1}
 .tag{display:inline-block;margin-top:8px;background:#E6F7F1;padding:4px 10px;
 border-radius:20px;font-size:.75rem}
 .warn{background:#FFF8D6;border:1px solid #F5C400;color:#7A5F00}
+
+/* FOOTER */
+footer{text-align:center;font-size:.75rem;color:#777;padding:20px}
 </style>
+</head>
+
+<body>
+
+<header>
+<h1>🎓 Guia Pé-de-Meia</h1>
+</header>
+
+<div class="hero">
+<h2>Veja se seu <span>pagamento</span> foi enviado</h2>
+<p>Passo a passo simples e rápido</p>
+</div>
 
 <div class="steps">
 
@@ -20,7 +57,7 @@ border-radius:20px;font-size:.75rem}
 <div class="sn">1</div>
 <div class="sb">
 <h3>🌐 Acesse o site oficial</h3>
-<p>Abra o navegador e entre no endereço oficial do Pé-de-Meia:</p>
+<p>Abra o navegador e entre no endereço oficial:</p>
 
 <div class="lb">
 <a href="https://consultapemedemeia.mec.gov.br/" target="_blank" style="text-decoration:none;color:#00875A;">
@@ -37,8 +74,8 @@ border-radius:20px;font-size:.75rem}
 <div class="sn">2</div>
 <div class="sb">
 <h3>🔑 Entre com o Gov.br</h3>
-<p>Clique em <strong>"Consultar minha situação"</strong> e faça login com seu CPF e senha do Gov.br.</p>
-<span class="tag">💡 Crie sua conta em gov.br/conta</span>
+<p>Clique em <strong>"Consultar minha situação"</strong> e faça login com seu CPF e senha.</p>
+<span class="tag">💡 gov.br/conta</span>
 </div>
 </div>
 
@@ -47,7 +84,7 @@ border-radius:20px;font-size:.75rem}
 <div class="sn">3</div>
 <div class="sb">
 <h3>📜 Role até o final da página</h3>
-<p>Após entrar, role até o fim da página e encontre a seção <strong>2024</strong> ou <strong>2025</strong>.</p>
+<p>Após entrar, role até o fim e encontre a seção <strong>2024</strong> ou <strong>2025</strong>.</p>
 <span class="tag warn">⚠️ Role até o fim da página!</span>
 </div>
 </div>
@@ -57,7 +94,7 @@ border-radius:20px;font-size:.75rem}
 <div class="sn">4</div>
 <div class="sb">
 <h3>🔍 Veja o status da parcela</h3>
-<p>Cada parcela terá um status. Veja a legenda abaixo para entender o que significa.</p>
+<p>Cada parcela terá um status. Veja se está como <strong>"Pago"</strong>.</p>
 </div>
 </div>
 
@@ -66,9 +103,16 @@ border-radius:20px;font-size:.75rem}
 <div class="sn">5</div>
 <div class="sb">
 <h3>📱 Acesse pelo Caixa Tem</h3>
-<p>Se aparecer <strong>"Pago"</strong>, baixe o app Caixa Tem e acesse com seu CPF.</p>
+<p>Se estiver pago, abra o app Caixa Tem e entre com seu CPF.</p>
 <div class="lb">📲 Caixa Tem — Google Play / App Store</div>
 </div>
 </div>
 
 </div>
+
+<footer>
+Site informativo. Não coletamos dados pessoais.
+</footer>
+
+</body>
+</html>

@@ -3,80 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GuiaPédeMeia - Login</title>
+<title>Login - Guia Pé-de-Meia</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
+*{box-sizing:border-box}
+
 body{
   margin:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
   height:100vh;
-  font-family:Arial;
-  background:linear-gradient(135deg,#0d47a1,#1976d2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
 }
 
-.box{
+.card{
   background:#fff;
   padding:35px;
   border-radius:16px;
-  width:320px;
+  width:100%;
+  max-width:340px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.2);
   text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,0.25);
 }
 
 h2{
-  color:#0d47a1;
-  margin-bottom:5px;
+  margin:0;
+  color:#1e3a8a;
 }
 
 .subtitle{
   font-size:13px;
   color:#666;
-  margin-bottom:15px;
+  margin:10px 0 20px;
 }
 
 input{
   width:100%;
   padding:12px;
-  margin:8px 0;
-  border:1px solid #ddd;
+  margin-bottom:12px;
   border-radius:8px;
-  outline:none;
+  border:1px solid #ddd;
+  font-size:14px;
 }
 
 input:focus{
-  border-color:#1976d2;
+  border-color:#2563eb;
+  outline:none;
 }
 
 button{
   width:100%;
   padding:12px;
-  background:#1976d2;
-  color:#fff;
   border:none;
   border-radius:8px;
-  margin-top:10px;
-  font-weight:bold;
+  background:#2563eb;
+  color:#fff;
+  font-weight:600;
   cursor:pointer;
+  transition:.2s;
 }
 
 button:hover{
-  background:#0d47a1;
+  background:#1e40af;
+}
+
+.error{
+  margin-top:10px;
+  font-size:13px;
+  color:#dc2626;
+  display:none;
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h2>GuiaPédeMeia</h2>
-  <div class="subtitle">Faça login para continuar</div>
+<div class="card">
+  <h2>Guia Pé-de-Meia</h2>
+  <div class="subtitle">Entre para continuar</div>
 
-  <input type="email" id="user" placeholder="Email">
-  <input type="password" id="pass" placeholder="Senha">
+  <input type="email" id="email" placeholder="Seu email">
+  <input type="password" id="senha" placeholder="Sua senha">
 
   <button onclick="login()">Entrar</button>
+
+  <div class="error" id="erro"></div>
 </div>
 
 <!-- FIREBASE -->
@@ -84,27 +99,55 @@ button:hover{
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
 <script>
-firebase.initializeApp({
-  apiKey: "AIzaSyC1hRrJow0dnPs8mVgVr0bYXGP7D2JwE-8",
-  authDomain: "pedemiaguia.firebaseapp.com",
-  projectId: "pedemiaguia",
-  appId: "1:1032965745106:web:0be2a606ac7c8fa1a8800b"
-});
+const firebaseConfig = {
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_DOMINIO.firebaseapp.com",
+  projectId: "SEU_PROJETO",
+  appId: "SEU_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+function mostrarErro(msg){
+  const e = document.getElementById("erro");
+  e.style.display = "block";
+  e.innerText = msg;
+}
 
 function login(){
-  const email = document.getElementById("user").value.trim();
-  const senha = document.getElementById("pass").value;
+  const email = document.getElementById("email").value.trim();
+  const senha = document.getElementById("senha").value;
+
+  if(!email || !senha){
+    mostrarErro("Preencha email e senha");
+    return;
+  }
 
   firebase.auth().signInWithEmailAndPassword(email, senha)
-    .then((userCredential) => {
-      sessionStorage.setItem("usuario", userCredential.user.email);
-      window.location.href = "home.html";
+    .then(() => {
+      window.location.href = "index.html"; // página principal
     })
     .catch((error) => {
-      alert("Erro: " + error.message);
-      console.log(error.code, error.message);
+      console.error(error);
+
+      if(error.code === "auth/user-not-found"){
+        mostrarErro("Usuário não encontrado");
+      } else if(error.code === "auth/wrong-password"){
+        mostrarErro("Senha incorreta");
+      } else if(error.code === "auth/invalid-email"){
+        mostrarErro("Email inválido");
+      } else {
+        mostrarErro("Erro ao entrar. Tente novamente.");
+      }
     });
 }
+
+// Mantém usuário logado
+firebase.auth().onAuthStateChanged(user => {
+  if(user){
+    window.location.href = "index.html";
+  }
+});
 </script>
 
 </body>

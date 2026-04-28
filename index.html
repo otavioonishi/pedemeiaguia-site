@@ -3,10 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Guia Pé-de-Meia</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+
+<style>
+body{
+  margin:0;
+  font-family: 'Inter', sans-serif;
+  background:#f5f7fb;
+  color:#1f2937;
+}
+
+header{
+  background:#2563eb;
+  color:white;
+  padding:20px;
+  text-align:center;
+  font-family:'Sora', sans-serif;
+}
+
+.hero{
+  text-align:center;
+  padding:30px 20px;
+}
+
+.hero span{
+  color:#2563eb;
+}
+
+.steps{
+  max-width:700px;
+  margin:0 auto;
+  padding:20px;
+}
+
+.step{
+  background:white;
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:15px;
+  display:flex;
+  gap:15px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+.sn{
+  background:#2563eb;
+  color:white;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+.sb h3{
+  margin:0 0 5px;
+}
+
+.lb a{
+  display:inline-block;
+  margin-top:8px;
+  color:#2563eb;
+  text-decoration:none;
+  font-weight:500;
+}
+
+.tag{
+  display:inline-block;
+  margin-top:8px;
+  font-size:12px;
+  background:#e0f2fe;
+  padding:4px 8px;
+  border-radius:6px;
+}
+
+.warn{
+  background:#fee2e2;
+}
+
+footer{
+  text-align:center;
+  font-size:12px;
+  padding:20px;
+  color:#6b7280;
+}
+</style>
 
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -14,12 +100,10 @@
 
 <script>
 const firebaseConfig = {
-  apiKey: "AIzaSyC1hRrJow0dnPs8mVgVr0bYXGP7D2JwE-8",
-  authDomain: "pedemiaguia.firebaseapp.com",
-  projectId: "pedemiaguia",
-  storageBucket: "pedemiaguia.firebasestorage.app",
-  messagingSenderId: "1032965745106",
-  appId: "1:1032965745106:web:0be2a606ac7c8fa1a8800b"
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_DOMINIO.firebaseapp.com",
+  projectId: "SEU_PROJETO",
+  appId: "SEU_APP_ID"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -40,59 +124,53 @@ firebase.initializeApp(firebaseConfig);
 
 <div class="steps">
 
-<!-- PASSO 1 -->
 <div class="step">
 <div class="sn">1</div>
 <div class="sb">
 <h3>🌐 Acesse o site oficial</h3>
-<p>Abra o navegador e entre no endereço oficial:</p>
+<p>Entre no site do MEC:</p>
 
 <div class="lb">
-<a href="https://consultapemedemeia.mec.gov.br/" target="_blank">
+<a href="https://consultapemedemeia.mec.gov.br/" target="_blank" rel="noopener noreferrer">
 🔗 consultapemedemeia.mec.gov.br
 </a>
 </div>
 
-<span class="tag">✅ Site oficial do MEC</span>
+<span class="tag">✅ Site oficial</span>
 </div>
 </div>
 
-<!-- PASSO 2 -->
 <div class="step">
 <div class="sn">2</div>
 <div class="sb">
-<h3>🔑 Entre com o Gov.br</h3>
-<p>Clique em <strong>"Consultar minha situação"</strong> e faça login com seu CPF e senha.</p>
-<span class="tag">💡 gov.br/conta</span>
+<h3>🔑 Login com Gov.br</h3>
+<p>Clique em <strong>"Consultar minha situação"</strong> e entre com CPF.</p>
+<span class="tag">💡 gov.br</span>
 </div>
 </div>
 
-<!-- PASSO 3 -->
 <div class="step">
 <div class="sn">3</div>
 <div class="sb">
-<h3>📜 Role até o final da página</h3>
-<p>Após entrar, role até o fim e encontre a seção <strong>2024</strong> ou <strong>2025</strong>.</p>
-<span class="tag warn">⚠️ Role até o fim da página!</span>
+<h3>📜 Role até o final</h3>
+<p>Procure pela seção de pagamentos (2024 ou 2025).</p>
+<span class="tag warn">⚠️ Vá até o fim da página</span>
 </div>
 </div>
 
-<!-- PASSO 4 -->
 <div class="step">
 <div class="sn">4</div>
 <div class="sb">
-<h3>🔍 Veja o status da parcela</h3>
-<p>Cada parcela terá um status. Veja se está como <strong>"Pago"</strong>.</p>
+<h3>🔍 Verifique o status</h3>
+<p>Confira se aparece como <strong>"Pago"</strong>.</p>
 </div>
 </div>
 
-<!-- PASSO 5 -->
 <div class="step">
 <div class="sn">5</div>
 <div class="sb">
-<h3>📱 Acesse pelo Caixa Tem</h3>
-<p>Se estiver pago, abra o app Caixa Tem e entre com seu CPF.</p>
-<div class="lb">📲 Caixa Tem — Google Play / App Store</div>
+<h3>📱 Abra o Caixa Tem</h3>
+<p>Se estiver pago, acesse o app com seu CPF.</p>
 </div>
 </div>
 
@@ -102,7 +180,6 @@ firebase.initializeApp(firebaseConfig);
 Site informativo. Não coletamos dados pessoais.
 </footer>
 
-<!-- PROTEÇÃO LOGIN -->
 <script>
 window.onload = function(){
   firebase.auth().onAuthStateChanged(user => {
@@ -112,11 +189,6 @@ window.onload = function(){
   });
 }
 </script>
-});
-</script>
-
-</body>
-</html></footer>
 
 </body>
 </html>
